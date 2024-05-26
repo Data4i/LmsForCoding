@@ -1,0 +1,41 @@
+{% include "base.html" %}
+
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container">
+  
+{% if form.errors %}
+<div class="alert alert-danger d-flex align-items-center" role="alert">
+  <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+  <p>
+    There was an error with your form...
+  </p>
+</div>
+{% endif %}
+
+
+  <h1>
+    Register
+  </h1>
+  <br/>
+  
+  <form action="{% url 'register_user' %}", method=POST>
+    {% csrf_token %}
+    {{ form|crispy }}
+
+    <input type="submit" value="Submit" class="btn btn-secondary">
+    
+    <br/>
+    <br/>
+    <div>
+        <p>
+          Have An Account?
+          <a class=" my-2 my-sm-0" href={% url "login" %}>Login</a>
+        </p>
+    </div>
+  </form>
+</div>
+
+{% endblock content %}
+
