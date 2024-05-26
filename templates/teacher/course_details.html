@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <h1 class="">{{course.course_title}}</h1>
+    {% comment %} <div class="ratio ratio-16x9">
+        <iframe src="{{course.course_video}}" title="YouTube video" allowfullscreen></iframe>
+    </div> {% endcomment %}
+    <video class="video-fluid">
+        <source src="{{course.course_video.url}}" type="video/mp4" />
+    </video>
+    <p class="">Posted by <strong>{{course.owner}}</strong> on <em>{{course.created_on|date}}</em></p>
+    <hr>
+    <p class="">
+        {{course.course_description}}
+    </p>
+</div>
+
+{% endblock content %}

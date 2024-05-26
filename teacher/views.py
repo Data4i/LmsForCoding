@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 from .forms import CourseForm
 from .models import Course
@@ -23,23 +24,26 @@ def course_detail(request, slug):
     context = {
         'course': course
     }
-    return render(request, 'course/course_details.html', context)
+    return render(request, 'teacher/course_details.html', context)
 
 @login_required
 def create_course(request):
-    form = CourseForm()
+    # form = CourseForm()
     if request.method == 'POST':
         form = CourseForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            return redirect("course:filter_courses")
+            course = form.save(commit=False)
+            course.owner = request.user
+            course.save()
+            messages.success(request, 'Course Creation Successfull!!!')
+            return redirect("filter_courses", slug=course.slug)
     else:
         form = CourseForm()
         
     context = {
         'form': form
     }
-    return render(request, 'course/course_form.html', context) 
+    return render(request, 'teacher/course_form.html', context) 
     
 @login_required
 def update_course(request, slug):
@@ -49,15 +53,15 @@ def update_course(request, slug):
         form = CourseForm(request.POST, request.FILES, instance = course)
         if form.is_valid():
             form.save()
-            return redirect('course:filter_courses')
+            return redirect('filter_courses', slug=course.slug)
     context = {
         'form': form
     }
     
-    return render(request, 'course/course_form.html', context)       
+    return render(request, 'teacher/course_form.html', context)       
 
 @login_required
 def delete_course(request, slug):
     course = Course.objects.get(slug = slug)
     course.delete()
-    return redirect('course:filter_courses')
+    return redirect('filter_courses', slug=course.slug)
