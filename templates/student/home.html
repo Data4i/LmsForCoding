@@ -1,42 +1,25 @@
-{% extends "base.html" %}
+{% extends "student_base.html" %}
 
 {% block content %}
-<div class="row row-cols-1 row-cols-md-2">
-    <div class="col mb-4">
-      <div class="card">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+  {% if courses %}
+    <div class="row row-cols-1 row-cols-md-3">
+      {% for course in courses %}
+      <div class="col mb-4">
+        <div class="card">
+          <div class="shadow p-3 mb-6 bg-body rounded">
+            <img src="{{course.cover_image.url}}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Course Title: <strong>{{course.course_title|title}}</strong></h5>
+              {% comment %} <p class="card-text">{{course.course_description|truncatewords:20}}</p> {% endcomment %}
+              <p class="card-text">Author: <strong>{{course.slug|title}}</strong></p>
+              <a class="btn btn-primary" href = "{% url 'all_course_details' course.course_title %}">View Course</a>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col mb-4">
-      <div class="card">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        </div>
-      </div>
-    </div>
-    <div class="col mb-4">
-      <div class="card">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-        </div>
-      </div>
-    </div>
-    <div class="col mb-4">
-      <div class="card">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        </div>
-      </div>
-    </div>
-  </div>
+    {% endfor %}
+
+  {% else %}
+    <h1>No Course Available</h1>
+  {% endif %}
 {% endblock content %}
