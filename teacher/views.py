@@ -61,7 +61,7 @@ def update_course(request, slug):
     return render(request, 'teacher/course_form.html', context)       
 
 @login_required
-def delete_course(request, slug):
-    course = Course.objects.get(slug = slug)
+def delete_course(request, course_title):
+    course = Course.objects.get(course_title = course_title)
     course.delete()
     return redirect('filter_courses', slug=course.slug)
