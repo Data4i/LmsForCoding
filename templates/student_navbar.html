@@ -18,7 +18,7 @@
       </ul>
       <form class="form-inline my-2 my-lg-0">
         {% if user.is_authenticated %}
-        <a class="btn btn-outline-success my-2 my-sm-0" style="margin:1rem" href="">Teacher Mode</a>
+        {% comment %} <a class="btn btn-outline-success my-2 my-sm-0" style="margin:1rem" href="{% url "filter_courses" course.slug%}">Teacher Mode</a> {% endcomment %}
         <a class="btn btn-outline-success my-2 my-sm-0" href={% url "logout" %}>Logout</a>
         {% else %}
         <a class="btn btn-outline-success my-2 my-sm-0" style="margin:1rem" href={% url "register_user" %}>Register</a>

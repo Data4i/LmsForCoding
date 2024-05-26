@@ -65,3 +65,8 @@ def delete_course(request, course_title):
     course = Course.objects.get(course_title = course_title)
     course.delete()
     return redirect('filter_courses', slug=course.slug)
+
+@login_required
+def some_view(request):
+    courses = Course.objects.all()
+    return render(request, 'navbar.html', {'courses': courses})
