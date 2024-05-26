@@ -3,3 +3,4 @@ django_env
 **env
 __pycache__
 migrations
+media
