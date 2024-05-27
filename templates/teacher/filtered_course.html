@@ -3,7 +3,7 @@
 {% block content %}
 
 {% if courses %}
-<div class="row row-cols-1 row-cols-md-3">
+<div class="card-columns">
     {% for course in courses %}
     <div class="col mb-4">
       <div class="card">
@@ -16,6 +16,9 @@
             <a class="btn btn-primary" href = "{% url 'specific_course_details' course.course_title %}">View Course</a>
             <a style = 'background-color: green;' class="btn btn-secondary" href = "{% url 'update_course' course.course_title %}">Update Course</a>
             <a style = 'background-color: red;' class="btn btn-secondary" href = "{% url 'delete_course' course.course_title %}">Delete Course</a>
+            <div class="card-footer">
+              <small class="text-muted">Last updated: {{course.updated_on|timesince}}</small>
+            </div>
           </div>
         </div>
       </div>

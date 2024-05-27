@@ -2,7 +2,7 @@
 
 {% block content %}
   {% if courses %}
-    <div class="row row-cols-1 row-cols-md-3">
+    <div class=" card-columns">
       {% for course in courses %}
       <div class="col mb-4">
         <div class="card">
@@ -13,6 +13,9 @@
               {% comment %} <p class="card-text">{{course.course_description|truncatewords:20}}</p> {% endcomment %}
               <p class="card-text">Author: <strong>{{course.slug|title}}</strong></p>
               <a class="btn btn-primary" href = "{% url 'all_course_details' course.course_title %}">View Course</a>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Last updated: {{course.updated_on|timesince}}</small>
             </div>
           </div>
         </div>
