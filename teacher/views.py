@@ -68,6 +68,14 @@ def delete_course(request, course_title):
     return redirect('filter_courses', slug=course.slug)
 
 @login_required
+def get_specific_details(request, course_title):
+    course = Course.objects.get(course_title = course_title)
+    context = {
+        "course": course,
+    }
+    return render(request, 'teacher/specific_course_details.html', context)
+
+@login_required
 def some_view(request):
     courses = Course.objects.all()
     return render(request, 'navbar.html', {'courses': courses})

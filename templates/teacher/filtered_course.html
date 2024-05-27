@@ -13,7 +13,7 @@
             <h5 class="card-title">Course Title: <strong>{{course.course_title|title}}</strong></h5>
             {% comment %} <p class="card-text">{{course.course_description|truncatewords:20}}</p> {% endcomment %}
             <p class="card-text">Author: <strong>{{course.slug|title}}</strong></p>
-            <a class="btn btn-primary" href = "{% url 'all_course_details' course.course_title %}">View Course</a>
+            <a class="btn btn-primary" href = "{% url 'specific_course_details' course.course_title %}">View Course</a>
             <a style = 'background-color: green;' class="btn btn-secondary" href = "{% url 'update_course' course.course_title %}">Update Course</a>
             <a style = 'background-color: red;' class="btn btn-secondary" href = "{% url 'delete_course' course.course_title %}">Delete Course</a>
           </div>

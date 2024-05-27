@@ -8,5 +8,6 @@ urlpatterns = [
     path('update/<str:course_title>/', views.update_course, name = 'update_course'),
     path('course_detail/<str:slug>/', views.course_detail, name='course_detail'),
     path('filter_courses/<str:slug>/', views.filter_courses, name = 'filter_courses'),
+    path("specific_course_details/<str:course_title>/", views.get_specific_details, name="specific_course_details"),
     path('delete_course/<str:course_title>', views.delete_course, name = 'delete_course')
 ]
