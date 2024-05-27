@@ -1,4 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
+<div class="shadow p-3 mb-3 bg-body rounded">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
   <a class="navbar-brand" href={% url "all_courses" %}>Code With Timi</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -17,7 +18,7 @@
       </li>
       <li class="nav-item">
           <a class="nav-link" href="#">Forum</a>
-      </li>
+        </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
       {% if user.is_authenticated %}
@@ -31,3 +32,4 @@
     
   </div>
 </nav>
+</div>
