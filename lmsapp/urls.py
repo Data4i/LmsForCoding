@@ -25,6 +25,7 @@ urlpatterns = [
     path('member/', include("member.urls")),
     path('', include("student.urls")),
     path('teacher/', include('teacher.urls')),
+    path('editor/', include("editor.urls")),
     path("__debug__/", include("debug_toolbar.urls")),
 ] + static(
     settings.MEDIA_URL,

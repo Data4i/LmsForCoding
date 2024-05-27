@@ -46,8 +46,9 @@ def create_course(request):
     return render(request, 'teacher/course_form.html', context) 
     
 @login_required
-def update_course(request, slug):
-    course = Course.objects.get(slug = slug)
+def update_course(request, course_title):
+    print(course_title)
+    course = Course.objects.get(course_title = course_title)
     form = CourseForm(instance = course)
     if request.method == 'POST':
         form = CourseForm(request.POST, request.FILES, instance = course)

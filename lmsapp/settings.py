@@ -44,6 +44,7 @@ CUSTOM_APPS = [
     'teacher',
     'student',
     'member',
+    'editor',
 ]
 
 THIRDPARTY_APPS = [

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Code Editor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css">
+    <style>
+        #editor {
+            height: 300px;
+            border: 1px solid #ddd;
+        }
+        #output {
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <select id="language">
+        <option value="python">Python</option>
+        <option value="javascript">JavaScript</option>
+        <option value="ruby">Ruby</option>
+        <option value="htmlmixed">HTML</option>
+        <option value="php">PHP</option>
+        <option value="c">C</option>
+        <option value="cpp">C++</option>
+        <option value="java">Java</option>
+        <option value="csharp">C#</option>
+    </select>
+    <div id="editor"></div>
+    <button id="runCode">Run Code</button>
+    <div id="output"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/python/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/ruby/ruby.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/htmlmixed/htmlmixed.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/php/php.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/clike/clike.min.js"></script>
+    <!-- Add other modes as needed -->
+
+    <script>
+        // Initialize the editor
+        const editor = CodeMirror(document.getElementById('editor'), {
+            mode: 'python',
+            lineNumbers: true
+        });
+
+        // Change mode based on selected language
+        document.getElementById('language').addEventListener('change', function() {
+            const language = this.value;
+            const mode = {
+                'python': 'python',
+                'javascript': 'javascript',
+                'ruby': 'ruby',
+                'htmlmixed': 'htmlmixed',
+                'php': 'php',
+                'c': 'text/x-csrc',
+                'cpp': 'text/x-c++src',
+                'java': 'text/x-java',
+                'csharp': 'text/x-csharp'
+            }[language];
+            editor.setOption('mode', mode);
+        });
+
+        // Get CSRF token from cookie
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        const csrftoken = getCookie('csrftoken');
+
+        // Run code on button click
+        document.getElementById('runCode').addEventListener('click', async () => {
+            const code = editor.getValue();
+            const language = document.getElementById('language').value;
+            const response = await fetch('/execute/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRFToken': csrftoken
+                },
+                body: `code=${encodeURIComponent(code)}&language=${encodeURIComponent(language)}`
+            });
+            const result = await response.json();
+            document.getElementById('output').innerText = result.output;
+        });
+    </script>
+</body>
+</html>
