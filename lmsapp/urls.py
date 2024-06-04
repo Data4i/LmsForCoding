@@ -18,7 +18,6 @@ from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
 from django.urls import path, include
-from machina import urls as machina_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,8 +25,8 @@ urlpatterns = [
     path('member/', include("member.urls")),
     path('', include("student.urls")),
     path('teacher/', include('teacher.urls')),
+    path('forum/', include('forum.urls')),
     path('codeeditor/', include('codeeditor.urls')),
-    path('forum/', include(machina_urls), name='forum'),
     path("__debug__/", include("debug_toolbar.urls")),
 ] + static(
     settings.MEDIA_URL,

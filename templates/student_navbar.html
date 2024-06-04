@@ -1,7 +1,6 @@
 
-<div class="shadow p-3 mb-3 bg-body rounded">
 
-  <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
+  <nav class="fixed-top shadow p-3 navbar navbar-expand-lg navbar-light bg-light mb-3">
     <a class="navbar-brand" href={% url "all_courses" %}>Code With Timi</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -15,8 +14,14 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url "code_editor" %}">Code</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/forum">Forum</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Forum
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="{% url "create_thread" %}">Create Threads</a>
+            <a class="dropdown-item" href="{% url "thread_list" %}">View Threads</a>
+          </div>
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
@@ -31,4 +36,3 @@
       
     </div>
   </nav>
-</div>
