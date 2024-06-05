@@ -1,12 +1,3 @@
-# from django.shortcuts import render
-# from django.views.decorators.csrf import csrf_exempt
-# # Create your views here.
-# from django.shortcuts import render
-
-# def code_editor(request):
-#     return render(request, 'student/editor.html')
-
-
 import subprocess
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
@@ -20,7 +11,7 @@ def code_editor(request):
     if request.method == "POST":
         code = request.POST.get("code", "")
         language = request.POST.get("language", "python")
-
+        print(code)
         try:
             if language == "python":
                 process = subprocess.run(["python3", "-c", code], capture_output=True, text=True, check=True)
@@ -43,6 +34,10 @@ def code_editor(request):
             if process:
                 output = process.stdout + process.stderr
         except subprocess.CalledProcessError as e:
-            output = e.output
+            output = e.stdout + e.stderr
+        except Exception as e:
+            output = str(e)
+            
+        print(output)
 
     return render(request, 'student/editor.html', {'code': code, 'language': language, 'output': output})

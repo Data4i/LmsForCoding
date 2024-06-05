@@ -1,11 +1,11 @@
+import subprocess
+from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 from .forms import CourseForm
 from .models import Course
-
-# from .forms import 
 
 # Create your views here.
 @login_required
@@ -25,6 +25,7 @@ def course_detail(request, slug):
         'course': course
     }
     return render(request, 'teacher/course_details.html', context)
+
 
 @login_required
 def create_course(request):
@@ -79,3 +80,47 @@ def get_specific_details(request, course_title):
 def some_view(request):
     courses = Course.objects.all()
     return render(request, 'navbar.html', {'courses': courses})
+
+
+@csrf_exempt
+def course_assessment(request, course_title):
+    course = Course.objects.get(course_title=course_title)
+    
+    output = ""
+    code = ""
+    language = "python"
+
+    if request.method == "POST":
+        code = request.POST.get("code", "")
+        language = request.POST.get("language", "python")
+        print(code)
+        try:
+            if language == "python":
+                process = subprocess.run(["python3", "-c", code], capture_output=True, text=True, check=True)
+            elif language == "javascript":
+                process = subprocess.run(["node", "-e", code], capture_output=True, text=True, check=True)
+            elif language in ["clike", "c", "c++"]:
+                with open("temp.c", "w") as f:
+                    f.write(code)
+                process = subprocess.run(["gcc", "temp.c", "-o", "temp"], capture_output=True, text=True, check=True)
+                if process.returncode == 0:
+                    process = subprocess.run(["./temp"], capture_output=True, text=True, check=True)
+            elif language == "ruby":
+                process = subprocess.run(["ruby", "-e", code], capture_output=True, text=True, check=True)
+            elif language == "php":
+                process = subprocess.run(["php", "-r", code], capture_output=True, text=True, check=True)
+            else:
+                output = "Unsupported language!"
+                process = None
+
+            if process:
+                output = process.stdout + process.stderr
+        except subprocess.CalledProcessError as e:
+            output = e.stdout + e.stderr
+        except Exception as e:
+            output = str(e)
+
+    if output:
+        return render(request, 'teacher/course_assessment.html', {'code': code, 'course': course, 'language': language, 'output': output})
+    else:
+        return render(request, 'teacher/course_assessment.html', {'course': course, 'language': language, 'output': output})

@@ -13,6 +13,7 @@ class Course(models.Model):
     course_description = models.TextField()
     cover_image = models.ImageField(verbose_name="cover_image", blank=True)
     course_video = models.FileField(upload_to="video/%y")
+    course_assessment = models.TextField(blank=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     

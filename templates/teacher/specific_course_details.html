@@ -1,7 +1,10 @@
 {% include "base.html" %}
 
 {% block content %}
-
+<div class = "container">
+    <a href="{% url "course_assessment" course.course_title %}" class="shadow btn btn-primary">Assessment Question</a>
+</div>
+<br/>
 <div class="container">
     <div class="shadow p-3 mb-5 bg-body rounded">
         <h1 class="">{{course.course_title|title}}</h1>
@@ -12,6 +15,7 @@
         <p class="">Posted by <strong>{{course.owner}}</strong> on <em>{{course.created_on|date}}</em></p>
         <hr>
         <h3 class="">What This Course Is About</h3>
+        <hr>
         <p class="">
             {{course.course_description}}
         </p>
