@@ -1,6 +1,7 @@
 {% include "base.html" %}
 
 {% block content %}
+<<<<<<< HEAD
 
 
 
@@ -9,6 +10,11 @@
     <a href="{% url 'quiz_records' course.course_title %}" class="shadow btn btn-primary">Assessment Records</a>
 </div>
 
+=======
+<div class = "container">
+    <a href="{% url "course_assessment" course.course_title %}" class="shadow btn btn-primary">Assessment Question</a>
+</div>
+>>>>>>> dae647efa7a9c5c50c3cece29fe61504727d4820
 <br/>
 <div class="container">
     <div class="shadow p-3 mb-5 bg-body rounded">

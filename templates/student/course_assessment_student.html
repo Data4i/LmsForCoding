@@ -27,6 +27,7 @@
 </head>
 <body>
 
+<<<<<<< HEAD
     <br/>
 
     <div class="container">
@@ -38,6 +39,14 @@
                 <a href="{% url 'student_take_quiz' course.course_title %}" class="shadow btn btn-primary">Take Quiz</a>
             <!-- </div> -->
         </div>
+=======
+    <div class = "container row justify-content-center">
+        <a href="{% url "all_course_details" course.course_title%}" class="shadow btn btn-primary">Course Video</a>
+    </div>
+    <br/>
+
+    <div class="container">
+>>>>>>> dae647efa7a9c5c50c3cece29fe61504727d4820
         <h1 class="text-center">{{course.course_title|title}} Assessment</h1>
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -71,6 +80,7 @@
                 <h2>Output</h2>
                 <hr/>
                 <pre>{{ output }}</pre>
+<<<<<<< HEAD
                 {% if code %}
                 {% if good_answer %}
                 <h4 style="color: green">Great!!! Keep it up. It is Correct.</h4>
@@ -78,6 +88,8 @@
                 <h4 style="color:red">Na Bruv!!! Try Again</h4>
                 {% endif %}
                 {% endif %}
+=======
+>>>>>>> dae647efa7a9c5c50c3cece29fe61504727d4820
             </div>
         </div>
     </div>

@@ -14,12 +14,19 @@ class Course(models.Model):
     cover_image = models.ImageField(verbose_name="cover_image", blank=True)
     course_video = models.FileField(upload_to="video/%y")
     course_assessment = models.TextField(blank=True)
+<<<<<<< HEAD
     assessment_answer = models.CharField(max_length=512)
+=======
+>>>>>>> dae647efa7a9c5c50c3cece29fe61504727d4820
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     
     def __str__(self) -> str:
+<<<<<<< HEAD
         return f'{self.course_title}'
+=======
+        return f'{self.course_title, self.owner}'
+>>>>>>> dae647efa7a9c5c50c3cece29fe61504727d4820
     
     class Meta:
         verbose_name = "Course"
@@ -32,6 +39,7 @@ class Course(models.Model):
             
         return super().save(*args, **kwargs)
     
+<<<<<<< HEAD
     
 class MultipleChoiceQuestion(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='questions')
@@ -69,3 +77,16 @@ class QuizResult(models.Model):
         return f'{self.owner.username} - {self.course_title} - {self.score}'
     
 
+=======
+    # def save(self, *args, **kwargs):
+    #     if not self.slug:
+    #         self.slug = slugify(self.owner)
+    #         # Ensure the slug is unique
+    #         unique_slug = self.slug
+    #         num = 1
+    #         while Course.objects.filter(slug=unique_slug).exists():
+    #             unique_slug = f'{self.slug}-{num}'
+    #             num += 1
+    #         self.slug = unique_slug
+    #     super().save(*args, **kwargs)
+>>>>>>> dae647efa7a9c5c50c3cece29fe61504727d4820

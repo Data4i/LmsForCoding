@@ -1,9 +1,17 @@
 import subprocess
+<<<<<<< HEAD
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
 from teacher.models import Course, QuizResult
+=======
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
+
+from teacher.models import Course
+>>>>>>> dae647efa7a9c5c50c3cece29fe61504727d4820
 
 
 # Create your views here.
@@ -22,6 +30,7 @@ def get_all_course_details(request, course_title):
     return render(request, 'student/all_course_details.html', context)
 
 
+<<<<<<< HEAD
 def student_take_quiz(request, course_title):
     course = get_object_or_404(Course, course_title=course_title)
     questions = course.questions.all()
@@ -48,12 +57,17 @@ def student_take_quiz(request, course_title):
         
     return render(request, 'student/student_take_quiz.html', {'course': course, 'questions': questions, 'quiz_result': quiz_result})
 
+=======
+>>>>>>> dae647efa7a9c5c50c3cece29fe61504727d4820
 @csrf_exempt
 def course_assessment_student(request, course_title):
     course = Course.objects.get(course_title=course_title)
     print(course)
+<<<<<<< HEAD
     assessment_answer = course.assessment_answer
     print(assessment_answer)
+=======
+>>>>>>> dae647efa7a9c5c50c3cece29fe61504727d4820
     
     output = ""
     code = ""
@@ -87,11 +101,17 @@ def course_assessment_student(request, course_title):
             output = e.stdout + e.stderr
         except Exception as e:
             output = str(e)
+<<<<<<< HEAD
     
     good_answer = False
     if output:
         if str(output).strip() == str(course.assessment_answer).strip():
             good_answer=True
         return render(request, 'student/course_assessment_student.html', {'code': code, 'course': course, 'language': language, 'output': output, 'good_answer':good_answer})
+=======
+
+    if output:
+        return render(request, 'student/course_assessment_student.html', {'code': code, 'course': course, 'language': language, 'output': output})
+>>>>>>> dae647efa7a9c5c50c3cece29fe61504727d4820
     else:
         return render(request, 'student/course_assessment_student.html', {'course': course, 'language': language, 'output': output})

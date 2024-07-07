@@ -1,5 +1,6 @@
 import subprocess
 from django.views.decorators.csrf import csrf_exempt
+<<<<<<< HEAD
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
@@ -7,11 +8,23 @@ from django.contrib import messages
 
 from .forms import CourseForm, MultipleChoiceQuestionForm
 from .models import Course, QuizResult
+=======
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+
+from .forms import CourseForm
+from .models import Course
+>>>>>>> dae647efa7a9c5c50c3cece29fe61504727d4820
 
 # Create your views here.
 @login_required
 def filter_courses(request, slug):
+<<<<<<< HEAD
     courses = Course.objects.filter(slug = slug.lower())
+=======
+    courses = Course.objects.filter(slug = slug)
+>>>>>>> dae647efa7a9c5c50c3cece29fe61504727d4820
     context = {
         "courses": courses,
     }
@@ -20,7 +33,11 @@ def filter_courses(request, slug):
 
 @login_required
 def course_detail(request, slug):
+<<<<<<< HEAD
     course = Course.objects.get(slug = slug.lower())
+=======
+    course = Course.objects.get(slug = slug)
+>>>>>>> dae647efa7a9c5c50c3cece29fe61504727d4820
     course.save()
     context = {
         'course': course
@@ -49,6 +66,10 @@ def create_course(request):
     
 @login_required
 def update_course(request, course_title):
+<<<<<<< HEAD
+=======
+    print(course_title)
+>>>>>>> dae647efa7a9c5c50c3cece29fe61504727d4820
     course = Course.objects.get(course_title = course_title)
     form = CourseForm(instance = course)
     if request.method == 'POST':
@@ -81,6 +102,7 @@ def some_view(request):
     courses = Course.objects.all()
     return render(request, 'navbar.html', {'courses': courses})
 
+<<<<<<< HEAD
 # View to create a multiple-choice question
 @login_required
 def create_question(request, course_title):
@@ -106,6 +128,9 @@ def get_quiz_records(request, course_title):
     return render(request, 'teacher/quiz_records.html', {'quiz_records': quiz_records, 'course_title': course_title})
     
     
+=======
+
+>>>>>>> dae647efa7a9c5c50c3cece29fe61504727d4820
 @csrf_exempt
 def course_assessment(request, course_title):
     course = Course.objects.get(course_title=course_title)
