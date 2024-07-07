@@ -1,0 +1,7 @@
+{% extends 'student_base.html' %}
+
+{% block content %}
+  <h2>Quiz Results for {{ course.course_title }}</h2>
+  <p>Your score: {{ score }} out of {{ total }}</p>
+  <a href="{% url 'all_course_details' course.course_title %}">Back to Course</a>
+{% endblock %}

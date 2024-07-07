@@ -1,0 +1,113 @@
+<!-- templates/code_editor.html -->
+
+{% include "student_base.html" %}
+
+{% load crispy_forms_tags %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{course.course_title|title}} Assessment</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css">
+    <style>
+        .container {
+            margin-top: 50px;
+        }
+        .output {
+            border: 1px solid #dee2e6;
+            border-radius: 0.25rem;
+            padding: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <br/>
+
+    <div class="container">
+        <div class = "container mx-auto">
+            <!-- <div class="col px-md-5"> -->
+                <a href="{% url 'all_course_details' course.course_title%}" style="margin: left 10rem;" class="shadow btn btn-primary">Course Video</a>
+            <!-- </div> -->
+            <!-- <div class="col px-md-5"> -->
+                <a href="{% url 'student_take_quiz' course.course_title %}" class="shadow btn btn-primary">Take Quiz</a>
+            <!-- </div> -->
+        </div>
+        <h1 class="text-center">{{course.course_title|title}} Assessment</h1>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="code">Code:</label>
+                        {% if code %}
+                            <textarea class="form-control" id="code" name="code" rows="10">{{code}}</textarea>
+                        {% elif course %} 
+                            <textarea class="form-control" id="code" name="code" rows="10">{{course.course_assessment}}</textarea>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="language">Select Language:</label>
+                        <select class="form-control" id="language" name="language" onchange="changeLanguage(this.value)">
+                            <option value="python" {% if language == 'python' %}selected{% endif %}>Python</option>
+                            <option value="javascript" {% if language == 'javascript' %}selected{% endif %}>JavaScript</option>
+                            <option value="clike" {% if language == 'clike' %}selected{% endif %}>C/C++</option>
+                            <option value="ruby" {% if language == 'ruby' %}selected{% endif %}>Ruby</option>
+                            <option value="php" {% if language == 'php' %}selected{% endif %}>PHP</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Run Code</button>
+                    <button onclick="reset_code()" class="btn btn-primary">Reset</button>
+                </form>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-8 output">
+                <h2>Output</h2>
+                <hr/>
+                <pre>{{ output }}</pre>
+                {% if code %}
+                {% if good_answer %}
+                <h4 style="color: green">Great!!! Keep it up. It is Correct.</h4>
+                {% else %}
+                <h4 style="color:red">Na Bruv!!! Try Again</h4>
+                {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/python/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/clike/clike.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/ruby/ruby.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/php/php.min.js"></script>
+
+    <script>
+        
+        var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
+            lineNumbers: true,
+            mode: '{{ language }}'
+        });
+        
+        function changeLanguage(language) {
+            var mode = {
+                python: 'python',
+                javascript: 'javascript',
+                clike: 'text/x-csrc',
+                ruby: 'ruby',
+                php: 'application/x-httpd-php'
+            };
+            editor.setOption('mode', mode[language]);
+        }
+    </script>
+</body>
+</html>
+
+{% endblock content %}

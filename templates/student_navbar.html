@@ -1,0 +1,38 @@
+
+
+  <nav class="fixed-top shadow p-3 navbar navbar-expand-lg navbar-light bg-light mb-3">
+    <a class="navbar-brand" href={% url "all_courses" %}>Code With Timi</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url "all_courses" %}">Courses</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url "code_editor" %}">Code</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Forum
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="{% url "create_thread" %}">Create Threads</a>
+            <a class="dropdown-item" href="{% url "thread_list" %}">View Threads</a>
+          </div>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        {% if user.is_authenticated %}
+        <a class="btn btn-outline-success my-2 my-sm-0" style="margin:1rem" href="{% url "filter_courses" user.username %}">Teacher Mode</a>
+        <a class="btn btn-outline-success my-2 my-sm-0" href={% url "logout" %}>Logout</a>
+        {% else %}
+        <a class="btn btn-outline-success my-2 my-sm-0" style="margin:1rem" href={% url "register_user" %}>Register</a>
+        <a class="btn btn-outline-success my-2 my-sm-0" href={% url "login" %}>Login</a>
+        {% endif %}
+      </form>
+      
+    </div>
+  </nav>

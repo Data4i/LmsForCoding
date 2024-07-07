@@ -1,0 +1,23 @@
+
+{% extends 'student_base.html' %}
+
+{% comment %} <div class ="container">
+    <a href="{% url "create_thread" %}" class="">Create Thread</button>
+</div>  {% endcomment %}
+{% block content %}
+
+    <br/>
+    {% for thread in threads %}
+    <div class="card">
+        <h5 class="card-header">{{thread.title|title}}</h5>
+        <div class="card-body">
+            <p class="card-text">{{thread.description}}</p>
+            <a href="{{thread.get_absolute_url}}" class="btn btn-primary">View Thread</a>
+        </div>
+        <div class="card-footer">
+            <small class="text-muted">Last updated: {{thread.created_at|timesince}}</small>
+        </div>
+    </div>
+    <br/>
+    {% endfor %}
+{% endblock %}

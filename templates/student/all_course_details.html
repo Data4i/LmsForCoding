@@ -1,0 +1,24 @@
+{% include "student_base.html" %}
+
+{% block content %}
+<div class = "container">
+    <a href="{% url 'course_assessment_student' course.course_title %}" class="shadow btn btn-primary">Assessment Question</a>
+</div>
+<br/>
+<div class="container">
+    <div class="shadow p-3 mb-5 bg-body rounded">
+        <h1 class="text-center">{{course.course_title|title}}</h1>
+        <video width="1000" height="500" controls>
+            <source src="{{course.course_video.url}}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <p class="">Posted by <strong>{{course.owner}}</strong> on <em>{{course.created_on|date}}</em></p>
+        <hr>
+        <h3 class="">What This Course Is About</h3>
+        <p class="">
+            {{course.course_description}}
+        </p>
+</div>
+</div>
+
+{% endblock content %}
